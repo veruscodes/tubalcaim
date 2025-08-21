@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tubalcaim Oficial</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Oxanium', sans-serif;
+      background: linear-gradient(135deg, #0f0f1b, #1a1a2e, #08111c);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    body.fade-in {
+      opacity: 1;
+    }
+
+    .container {
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 70%;
+      margin-bottom: 15px;
+      border: 3px solid #ff0000;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ff005c;
+    }
+
+    p {
+      margin-bottom: 25px;
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    .links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff0202, #ff5400);
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 1.1rem;
+    }
+
+    .links a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(255, 0, 92, 0.6);
+    }
+
+    /* Ícones dentro dos botões */
+    .links a img.icon-btn {
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="images/profile.png" alt="Avatar" class="avatar" />
+    <h1>TubalCaim</h1>
+    <p>⚡ Streamer & Criador de Conteúdo ⚡</p>
+
+    <div class="links">
+      <a href="https://www.youtube.com/@Tubalcaim.oficial" target="_blank">
+        <img src="images/youtube-icon.png" alt="YouTube" class="icon-btn" /> YouTube
+      </a>
+      <a href="https://www.twitch.tv/tubalcaim_oficial" target="_blank">
+        <img src="images/twitch-icon.png" alt="Twitch" class="icon-btn" /> Twitch
+      </a>
+      <a href="https://www.tiktok.com/@.tubalcaim" target="_blank">
+        <img src="images/tiktok-icon.png" alt="TikTok" class="icon-btn" /> TikTok
+      </a>
+      <a href="builds.html" class="transition-link">
+        <img src="images/diabloiv-icon.png" alt="Builds" class="icon-btn" /> Builds Diablo IV
+      </a>
+    </div>
+
+    <footer>VerusCode® All rights reserved 2025</footer>
+  </div>
+
+  <script>
+    // Fade-in ao carregar
+    document.body.classList.add("fade-in");
+
+    // Fade-out ao clicar em links internos
+    document.querySelectorAll("a.transition-link").forEach(link => {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        let url = this.getAttribute("href");
+        document.body.classList.remove("fade-in");
+        setTimeout(() => {
+          window.location.href = url;
+        }, 600);
+      });
+    });
+  </script>
+</body>
+</html>
