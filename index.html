@@ -130,6 +130,10 @@
         }, 600);
       });
     });
-  </script>
+      if (location.pathname.endsWith(".html")) {
+        let newPath = location.pathname.replace(".html", "");
+        history.replaceState(null, "", newPath);
+      }
+</script>
 </body>
 </html>
