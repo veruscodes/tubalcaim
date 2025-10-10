@@ -1072,3 +1072,67 @@ header::before {
   background: var(--primary-color);
   border-color: var(--primary-color);
 }
+/* ==================== FOOTER ==================== */
+.footer {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.footer__content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.footer__made-with {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.footer__made-with i {
+  color: var(--primary-color);
+  animation: heartbeat 2s infinite;
+}
+
+.footer__signature {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer__signature:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+/* Animação do coração */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Responsivo */
+@media (width > 768px) {
+  .footer__content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
