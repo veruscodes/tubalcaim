@@ -122,3 +122,4 @@ function ensureVisible() {
 // força exibir tudo antes do filtro
 window.addEventListener('load', ensureVisible);
 
+

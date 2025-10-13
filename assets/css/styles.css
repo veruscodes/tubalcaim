@@ -1136,3 +1136,176 @@ header::before {
     text-align: left;
   }
 }
+/* ==================== RESPONSIVIDADE ==================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .header__content h1 {
+    font-size: 4rem;
+    line-height: 5rem;
+  }
+  
+  .section__title {
+    font-size: 2rem;
+  }
+  
+  .nav__links a {
+    padding: 1.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablets Pequenos e Mobile Grande */
+@media (max-width: 768px) {
+  .header__container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .header__content :is(h2, h1, p, h4) {
+    text-align: center;
+  }
+  
+  .header__content h1 {
+    font-size: 3.5rem;
+    line-height: 4.5rem;
+  }
+  
+  .header__image img {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .header__btns {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header__btns .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .portfolio__grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .about__profile {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .profile__content h1,
+  .profile__tagline {
+    text-align: center;
+  }
+  
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cta__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta__buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .header__content h1 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+  
+  .header__content h2 {
+    font-size: 1.2rem;
+  }
+  
+  .header__content p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .socials {
+    gap: 0.5rem;
+  }
+  
+  .socials a {
+    font-size: 1.2rem;
+  }
+  
+  .section__container {
+    padding: 3rem 1rem;
+  }
+  
+  .portfolio__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .portfolio__filters {
+    gap: 0.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .stats__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about__dual {
+    grid-template-columns: 1fr;
+  }
+  
+  .why__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dual__card,
+  .why__card {
+    padding: 1.5rem;
+  }
+  
+  .contact__methods {
+    gap: 0.5rem;
+  }
+  
+  .contact__link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Muito Pequeno */
+@media (max-width: 360px) {
+  .header__content h1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  
+  .nav__logo a {
+    font-size: 1.2rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .portfolio__overlay h3 {
+    font-size: 1.2rem;
+  }
+  
+  .portfolio__overlay p {
+    font-size: 0.9rem;
+  }
+}
