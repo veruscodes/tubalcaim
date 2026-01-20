@@ -1,21 +1,18 @@
+var isMobile = window.innerWidth <= 768;
+
 particlesJS("particles-js", {
   "particles": {
     "number": {
-      "value": 120,
+      "value": isMobile ? 50 : 140,
       "density": {
         "enable": true,
         "value_area": 900
       }
     },
-    "color": {
-      "value": "#ffffff"
-    },
-    "shape": {
-      "type": "circle"
-    },
+    "color": { "value": "#ffffff" },
+    "shape": { "type": "circle" },
     "opacity": {
-      "value": 2.4,
-      "random": false
+      "value": 0.35
     },
     "size": {
       "value": 3,
@@ -25,34 +22,48 @@ particlesJS("particles-js", {
       "enable": true,
       "distance": 150,
       "color": "#ffffff",
-      "opacity": 2.25,
+      "opacity": 0.25,
       "width": 1
     },
     "move": {
       "enable": true,
-      "speed": 2,
-      "direction": "none",
+      "speed": isMobile ? 1.2 : 2,
       "out_mode": "out"
     }
   },
   "interactivity": {
-    "detect_on": "canvas",
     "events": {
-      "onhover": {
-        "enable": true,
-        "mode": "repulse"
-      },
-      "onclick": {
-        "enable": false
-      },
+      "onhover": { "enable": true, "mode": "repulse" },
       "resize": true
-    },
-    "modes": {
-      "repulse": {
-        "distance": 120,
-        "duration": 0.4
-      }
     }
   },
   "retina_detect": true
+});
+const openChat = document.getElementById("openChat");
+const chatModal = document.getElementById("chatModal");
+const closeChat = document.getElementById("closeChat");
+
+openChat.addEventListener("click", () => {
+    chatModal.classList.add("active");
+});
+
+closeChat.addEventListener("click", () => {
+    chatModal.classList.remove("active");
+});
+const tags = document.querySelectorAll(".chat-tags .tag");
+const feedback = document.getElementById("copyFeedback");
+
+tags.forEach(tag => {
+    tag.addEventListener("click", () => {
+        const value = tag.getAttribute("data-tag");
+
+        navigator.clipboard.writeText(value).then(() => {
+            feedback.innerText = `Tag copiada: ${value}`;
+            feedback.style.display = "block";
+
+            setTimeout(() => {
+                feedback.style.display = "none";
+            }, 2000);
+        });
+    });
 });

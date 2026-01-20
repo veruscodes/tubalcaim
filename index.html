@@ -4,55 +4,92 @@
     <meta charset="UTF-8">
     <title>TubalCaim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
+
 <div class="bg"></div>
 <div id="particles-js"></div>
 <div class="overlay"></div>
-<div class="bg"></div>
-<div class="overlay"></div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <main class="wrapper">
     <section class="card">
-        <div class="avatar">
-    <img src="images/channels4_profile.jpg" alt="TubalCaim">
-</div>
 
-        <h1>Tubalcaim Oficial</h1>
-        <p class="subtitle">
-            Gameplay limpa, sem narração.<br>
-            Troca ideia direto no chat durante a live.
-        </p>
+        <div class="avatar">
+            <img src="images/channels4_profile.jpg" alt="TubalCaim">
+        </div>
+
+        <h1 class="title">
+            TubalCaim
+            <span class="verified-badge">
+                <i class="fa-solid fa-check"></i>
+            </span>
+        </h1>
 
         <div class="links">
-    <a href="https://tiktok.com/@.tubalcaim" target="_blank" class="btn">
-        <i class="fa-brands fa-tiktok"></i>
-        <span>TikTok</span>
-    </a>
+            <a href="https://tiktok.com/@.tubalcaim" target="_blank" class="btn">
+                <i class="fa-brands fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
 
-    <a href="https://twitch.tv/tubalcaim_oficial" target="_blank" class="btn">
-        <i class="fa-brands fa-twitch"></i>
-        <span>Twitch</span>
-    </a>
+            <a href="https://twitch.tv/tubalcaim_oficial" target="_blank" class="btn">
+                <i class="fa-brands fa-twitch"></i>
+                <span>Twitch</span>
+            </a>
 
-    <a href="https://www.youtube.com/@Tubalcaim.oficial" target="_blank" class="btn">
-        <i class="fa-brands fa-youtube"></i>
-        <span>YouTube</span>
-    </a>
-</div>
-        <br>
-    <footer>
-            <span>© 2024-2026 TubalCaim</span>
-            <p></p>
+            <a href="https://www.youtube.com/@Tubalcaim.oficial" target="_blank" class="btn">
+                <i class="fa-brands fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+        </div>
+            <br>
+        <footer>
+            <span>© 2024–2026 TubalCaim</span><br>
             <span>Todos os direitos reservados.</span>
-    </footer>
+        </footer>
+
     </section>
 </main>
+
+<!-- Botão flutuante -->
+<div class="chat-float" id="openChat">
+    <span class="chat-bubble-float">Vamos jogar juntos?</span>
+
+    <div class="chat-avatar">
+        <img src="images/channels4_profile.jpg" alt="TubalCaim">
+    </div>
+</div>
+
+
+<!-- Modal Chat Gamer -->
+<div class="chat-modal" id="chatModal">
+    <div class="chat-box">
+        <div class="chat-header">
+            <span>Vamos jogar juntos?</span>
+            <button id="closeChat">✕</button>
+        </div>
+
+        <div class="chat-body">
+            <p>Escolha a sua plataforma 👇</p>
+
+            <div class="chat-tags">
+    <button class="tag ps" data-tag="Tubal-Caim">PlayStation</button>
+    <button class="tag blizzard" data-tag="AMENHOTEP #21864">Blizzard</button>
+    <button class="tag steam" data-tag="windsonmartins1992">Steam</button>
+</div>
+
+<div class="copy-feedback" id="copyFeedback"></div>
+
+        </div>
+    </div>
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="js/particles.js"></script>
 
 </body>
-
 </html>
