@@ -12,7 +12,6 @@ body {
     overflow-x: hidden;
 }
 
-/* BACKGROUND */
 .bg {
     position: fixed;
     inset: 0;
@@ -31,15 +30,10 @@ body {
 .overlay {
     position: fixed;
     inset: 0;
-    background: radial-gradient(
-        circle at top,
-        rgba(0,0,0,0.4),
-        rgba(0,0,0,0.85)
-    );
+    background: radial-gradient(circle at top, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
     z-index: -1;
 }
 
-/* LAYOUT */
 .wrapper {
     min-height: 100vh;
     display: flex;
@@ -60,14 +54,12 @@ body {
     text-align: center;
 }
 
-/* AVATAR */
 .avatar {
     width: 160px;
     height: 160px;
     margin: 0 auto 16px;
     border-radius: 50%;
     overflow: hidden;
-    background: rgba(255,255,255,0.15);
 }
 
 .avatar img {
@@ -76,7 +68,6 @@ body {
     object-fit: cover;
 }
 
-/* TITLE */
 .title {
     display: inline-flex;
     align-items: center;
@@ -103,11 +94,10 @@ body {
 }
 
 .verified-badge i {
-    color: #fff;
     font-size: 9px;
+    color: #fff;
 }
 
-/* LINKS */
 .links {
     margin-top: 28px;
     display: flex;
@@ -118,8 +108,8 @@ body {
 .btn {
     padding: 15px;
     border-radius: 14px;
-    text-decoration: none;
     color: #fff;
+    text-decoration: none;
     font-weight: 600;
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);
@@ -127,25 +117,92 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    transition: all 0.25s ease;
 }
 
-.btn:hover {
-    background: rgba(255,255,255,0.25);
-    transform: translateY(-2px);
+.social-cards {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
-/* FLOAT CHAT */
+.social-card {
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
+    display: grid;
+    grid-template-columns: 46px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.social-info {
+    display: contents;
+}
+
+.social-info img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.social-text {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    row-gap: 2px;
+    text-align: left;
+}
+
+.social-label {
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.social-text strong {
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.social-text small {
+    font-size: 12px;
+    opacity: 0.75;
+    line-height: 1.2;
+}
+
+.social-action {
+    padding: 8px 18px;
+    min-height: 36px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.social-label.youtube { color: #ff3d3d; }
+.social-action.youtube { background: #ff0000; }
+
+.social-label.twitch { color: #9146ff; }
+.social-action.twitch { background: #9146ff; }
+
+.social-label.tiktok { color: #ffffff; }
+.social-action.tiktok { background: #000; }
+
 .chat-float {
     position: fixed;
-    bottom: 80px;
+    bottom: 16px;
     right: 16px;
-    z-index: 9999;
     display: flex;
     align-items: center;
     gap: 10px;
-    text-decoration: none;
-    transform: translateZ(0);
+    z-index: 9999;
+    cursor: pointer;
 }
 
 .chat-avatar {
@@ -153,8 +210,6 @@ body {
     height: 56px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.45);
-    animation: pulseAvatar 2.8s ease-in-out infinite;
 }
 
 .chat-avatar img {
@@ -163,54 +218,23 @@ body {
     object-fit: cover;
 }
 
-.chat-bubble {
-    background: rgba(0,0,0,0.75);
-    color: #fff;
-    padding: 10px 14px;
+.chat-bubble-float {
+    background: rgba(0,0,0,0.78);
+    padding: 8px 12px;
     border-radius: 14px;
     font-size: 13px;
     white-space: nowrap;
-    backdrop-filter: blur(6px);
 }
 
-@keyframes pulseAvatar {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-/* MOBILE */
-@media (max-width: 480px) {
-
-    .avatar {
-        width: 120px;
-        height: 120px;
-    }
-
-    .title {
-        font-size: 22px;
-    }
-
-    .chat-float {
-        bottom: 16px;
-        right: 16px;
-    }
-
-    .chat-bubble {
-        display: none;
-    }
-}
-
-/* CHAT MODAL */
 .chat-modal {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
     display: none;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    z-index: 9998;
+    z-index: 9999;
 }
 
 .chat-modal.active {
@@ -221,20 +245,21 @@ body {
     width: 100%;
     max-width: 360px;
     margin: 16px;
-    background: rgba(30,30,30,0.95);
+    background: #1b1b1b;
     border-radius: 18px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
     overflow: hidden;
-    animation: slideUp 0.3s ease;
+    animation: chatPop 0.25s ease;
 }
 
-@keyframes slideUp {
-    from { transform: translateY(40px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes chatPop {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 .chat-header {
     padding: 14px 16px;
-    background: #1f1f1f;
+    background: #111;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -268,53 +293,56 @@ body {
 .tag {
     padding: 12px;
     border-radius: 12px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
-    text-align: center;
-}
-
-/* CORES DAS PLATAFORMAS */
-.tag.xbox { background: #107c10; }
-.tag.ps { background: #003087; }
-.tag.blizzard { background: #00aeff; }
-.tag.steam { background: #171a21; }
-
-.chat-bubble-float {
-    background: rgba(0, 0, 0, 0.78);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 14px;
-    font-size: 13px;
-    white-space: nowrap;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    animation: floatHint 2.5s ease-in-out infinite;
-}
-
-@keyframes floatHint {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0); }
-}
-
-.tag {
-    padding: 12px;
-    border-radius: 12px;
     border: none;
     cursor: pointer;
     color: #fff;
     font-weight: 600;
-    text-align: center;
 }
 
-.tag:active {
-    transform: scale(0.96);
-}
+.tag.ps { background: #003087; }
+.tag.blizzard { background: #00aeff; }
+.tag.steam { background: #171a21; }
 
 .copy-feedback {
     margin-top: 14px;
     font-size: 13px;
     color: #6bff95;
     display: none;
+}
+
+@media (max-width: 480px) {
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .social-card {
+        grid-template-columns: 46px 1fr;
+        grid-template-rows: auto auto;
+        row-gap: 10px;
+    }
+
+    .social-action {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .chat-bubble-float {
+        display: none;
+    }
+
+    .chat-modal {
+        align-items: flex-end;
+    }
+
+    .chat-box {
+        border-radius: 18px 18px 0 0;
+        max-width: 100%;
+    }
 }

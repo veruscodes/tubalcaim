@@ -44,26 +44,26 @@ const chatModal = document.getElementById("chatModal");
 const closeChat = document.getElementById("closeChat");
 
 openChat.addEventListener("click", () => {
-    chatModal.classList.add("active");
+  chatModal.classList.add("active");
 });
 
 closeChat.addEventListener("click", () => {
-    chatModal.classList.remove("active");
+  chatModal.classList.remove("active");
 });
 const tags = document.querySelectorAll(".chat-tags .tag");
 const feedback = document.getElementById("copyFeedback");
 
 tags.forEach(tag => {
-    tag.addEventListener("click", () => {
-        const value = tag.getAttribute("data-tag");
+  tag.addEventListener("click", () => {
+    const value = tag.getAttribute("data-tag");
 
-        navigator.clipboard.writeText(value).then(() => {
-            feedback.innerText = `Tag copiada: ${value}`;
-            feedback.style.display = "block";
+    navigator.clipboard.writeText(value).then(() => {
+      feedback.innerText = `Tag copiada: ${value}`;
+      feedback.style.display = "block";
 
-            setTimeout(() => {
-                feedback.style.display = "none";
-            }, 2000);
-        });
+      setTimeout(() => {
+        feedback.style.display = "none";
+      }, 2000);
     });
+  });
 });

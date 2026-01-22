@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>TubalCaim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/channels4_profile.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="images/channels4_profile.jpg">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -11,85 +14,132 @@
 
 <body>
 
-<div class="bg"></div>
-<div id="particles-js"></div>
-<div class="overlay"></div>
+    <div class="bg"></div>
+    <div id="particles-js"></div>
+    <div class="overlay"></div>
 
-<main class="wrapper">
-    <section class="card">
+    <main class="wrapper">
+        <section class="card">
 
-        <div class="avatar">
+            <div class="avatar">
+                <img src="images/channels4_profile.jpg" alt="TubalCaim">
+            </div>
+
+            <h1 class="title">
+                TubalCaim
+                <span class="verified-badge">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+            </h1>
+
+            <!-- SOCIAL CARDS -->
+<div class="social-cards">
+
+    <!-- YouTube -->
+    <div class="social-card youtube">
+        <div class="social-info">
+            <img src="images/channels4_profile.jpg" alt="YouTube TubalCaim">
+
+            <div class="social-text">
+                <span class="social-label youtube">
+                    <i class="fa-brands fa-youtube"></i> YouTube
+                </span>
+                <strong>@Tubalcaim.oficial</strong>
+                <small>Gameplays • Lives</small>
+            </div>
+        </div>
+
+        <a href="https://www.youtube.com/@Tubalcaim.oficial"
+           target="_blank"
+           class="social-action youtube">
+            Inscrever-se
+        </a>
+    </div>
+
+    <!-- Twitch -->
+    <div class="social-card twitch">
+        <div class="social-info">
+            <img src="images/channels4_profile.jpg" alt="Twitch TubalCaim">
+
+            <div class="social-text">
+                <span class="social-label twitch">
+                    <i class="fa-brands fa-twitch"></i> Twitch
+                </span>
+                <strong>tubalcaim_oficial</strong>
+                <small>Lives ao vivo • Chat ativo</small>
+            </div>
+        </div>
+
+        <a href="https://twitch.tv/tubalcaim_oficial"
+           target="_blank"
+           class="social-action twitch">
+            Seguir
+        </a>
+    </div>
+
+    <!-- TikTok -->
+    <div class="social-card tiktok">
+        <div class="social-info">
+            <img src="images/channels4_profile.jpg" alt="TikTok TubalCaim">
+
+            <div class="social-text">
+                <span class="social-label tiktok">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </span>
+                <strong>@.tubalcaim</strong>
+                <small>Cortes • Destaques</small>
+            </div>
+        </div>
+
+        <a href="https://tiktok.com/@.tubalcaim"
+           target="_blank"
+           class="social-action tiktok">
+            Seguir
+        </a>
+    </div>
+
+</div>
+
+            <br>
+            <footer>
+                <span>© 2024–2026 TubalCaim</span><br>
+                <span>Todos os direitos reservados.</span>
+            </footer>
+        </section>
+    </main>
+    <div class="chat-float" id="openChat">
+        <span class="chat-bubble-float">Vamos jogar juntos?</span>
+
+        <div class="chat-avatar">
             <img src="images/channels4_profile.jpg" alt="TubalCaim">
         </div>
-
-        <h1 class="title">
-            TubalCaim
-            <span class="verified-badge">
-                <i class="fa-solid fa-check"></i>
-            </span>
-        </h1>
-
-        <div class="links">
-            <a href="https://tiktok.com/@.tubalcaim" target="_blank" class="btn">
-                <i class="fa-brands fa-tiktok"></i>
-                <span>TikTok</span>
-            </a>
-
-            <a href="https://twitch.tv/tubalcaim_oficial" target="_blank" class="btn">
-                <i class="fa-brands fa-twitch"></i>
-                <span>Twitch</span>
-            </a>
-
-            <a href="https://www.youtube.com/@Tubalcaim.oficial" target="_blank" class="btn">
-                <i class="fa-brands fa-youtube"></i>
-                <span>YouTube</span>
-            </a>
-        </div>
-            <br>
-        <footer>
-            <span>© 2024–2026 TubalCaim</span><br>
-            <span>Todos os direitos reservados.</span>
-        </footer>
-
-    </section>
-</main>
-
-<!-- Botão flutuante -->
-<div class="chat-float" id="openChat">
-    <span class="chat-bubble-float">Vamos jogar juntos?</span>
-
-    <div class="chat-avatar">
-        <img src="images/channels4_profile.jpg" alt="TubalCaim">
     </div>
-</div>
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-box">
+            <div class="chat-header">
+                <span>Vamos jogar juntos?</span>
+                <button id="closeChat">✕</button>
+            </div>
 
+            <div class="chat-body">
+                <p>Escolha a sua plataforma 👇</p>
 
-<!-- Modal Chat Gamer -->
-<div class="chat-modal" id="chatModal">
-    <div class="chat-box">
-        <div class="chat-header">
-            <span>Vamos jogar juntos?</span>
-            <button id="closeChat">✕</button>
-        </div>
+                <div class="chat-tags">
+                    <button class="tag ps" data-tag="Tubal-Caim">PlayStation</button>
+                    <button class="tag blizzard" data-tag="AMENHOTEP #21864">Blizzard</button>
+                    <button class="tag steam" data-tag="windsonmartins1992">Steam</button>
+                </div>
 
-        <div class="chat-body">
-            <p>Escolha a sua plataforma 👇</p>
+                <div class="copy-feedback" id="copyFeedback"></div>
 
-            <div class="chat-tags">
-    <button class="tag ps" data-tag="Tubal-Caim">PlayStation</button>
-    <button class="tag blizzard" data-tag="AMENHOTEP #21864">Blizzard</button>
-    <button class="tag steam" data-tag="windsonmartins1992">Steam</button>
-</div>
-
-<div class="copy-feedback" id="copyFeedback"></div>
-
+            </div>
         </div>
     </div>
-</div>
 
 
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script src="js/particles.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/particles.js"></script>
 
 </body>
+
 </html>
