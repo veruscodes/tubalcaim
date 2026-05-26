@@ -1,0 +1,476 @@
+:root {
+  --bg-main: #09060d;
+  --bg-panel: rgba(14, 10, 18, 0.9);
+  --bg-card: rgba(8, 6, 12, 0.74);
+  --border: rgba(196, 146, 42, 0.18);
+  --text: #d6c7bc;
+  --text-dim: #8f7f75;
+  --bone: #f2e6d8;
+  --gold: #c4922a;
+  --shadow: rgba(0, 0, 0, 0.55);
+  --accent: #8b1e17;
+  --accent-soft: rgba(139, 30, 23, 0.2);
+  --radius: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Cormorant Garamond", serif;
+  background:
+    radial-gradient(circle at top, rgba(255, 120, 60, 0.08), transparent 32%),
+    linear-gradient(180deg, #0a070d 0%, #09060d 100%);
+  color: var(--text);
+  cursor: url("../cursor/d4-normal-select.cur"), auto;
+}
+
+a,
+button,
+.altar-link {
+  cursor: url("../cursor/d4-link-select.cur"), pointer;
+}
+
+input,
+textarea {
+  cursor: url("../cursor/d4-text-select.cur"), text;
+}
+
+.loadout-shell-page {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.loadout-shell-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(196, 146, 42, 0.08), transparent 24%),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.24));
+}
+
+.page-wrap {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 72px;
+}
+
+.page-topbar {
+  margin-bottom: 34px;
+}
+
+.page-topbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-family: "Cinzel", serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.page-topbar a:hover {
+  color: var(--bone);
+}
+
+.loadout-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 460px);
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 30px;
+}
+
+.loadout-intro {
+  padding: 10px 0 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(196, 146, 42, 0), rgba(196, 146, 42, 0.95));
+}
+
+.loadout-intro h1 {
+  margin: 0 0 12px;
+  font-family: "Cinzel", serif;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 0.95;
+  color: var(--bone);
+}
+
+.loadout-intro p {
+  margin: 0;
+  max-width: 680px;
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.loadout-sidecard {
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 16%),
+    var(--bg-panel);
+  box-shadow: 0 24px 64px var(--shadow);
+}
+
+.loadout-sidecard__label {
+  display: inline-flex;
+  margin-bottom: 16px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-family: "Cinzel", serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.loadout-sidecard h2 {
+  margin: 0 0 10px;
+  font-family: "Cinzel", serif;
+  font-size: 1.5rem;
+  color: var(--bone);
+}
+
+.loadout-sidecard p {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.altar {
+  position: relative;
+  padding: 30px;
+  border-radius: 28px;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(160deg, rgba(17, 12, 24, 0.96) 0%, rgba(8, 6, 12, 0.98) 100%);
+  box-shadow: 0 24px 80px var(--shadow);
+  overflow: hidden;
+}
+
+.altar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at center, color-mix(in srgb, var(--accent) 18%, transparent), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%);
+}
+
+.altar-heading {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.altar-heading h3 {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: var(--bone);
+}
+
+.altar-heading p {
+  margin: 0;
+  max-width: 760px;
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.altar-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 340px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.altar-column {
+  display: grid;
+  gap: 14px;
+}
+
+.altar-item {
+  min-height: 84px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(196, 146, 42, 0.12);
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.altar-item__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 1px solid rgba(196, 146, 42, 0.12);
+  background:
+    radial-gradient(circle at 50% 32%, rgba(196, 146, 42, 0.16), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.2));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.altar-item__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.altar-item__slot {
+  display: block;
+  margin-bottom: 4px;
+  font-family: "Cinzel", serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.altar-item__name {
+  display: block;
+  color: var(--bone);
+  font-size: 1.04rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.altar-item__type {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.altar-item--filled .altar-item__name {
+  color: #ff9a2f;
+}
+
+.altar-center {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+
+.altar-center::before {
+  content: "";
+  position: absolute;
+  inset: 10% 7%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(196, 146, 42, 0.08), transparent 62%);
+  filter: blur(12px);
+}
+
+.altar-sigil {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.altar-sigil img {
+  width: min(100%, 340px);
+  object-fit: contain;
+  filter: grayscale(1) brightness(0.9);
+}
+
+.altar-sigil--empty::before {
+  content: "";
+  width: min(100%, 300px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed rgba(196, 146, 42, 0.22);
+  background:
+    radial-gradient(circle at center, rgba(196, 146, 42, 0.08), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.18));
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+.altar-core {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 286px;
+  padding: 24px 20px;
+  text-align: center;
+  border-radius: 18px;
+  border: 1px solid rgba(196, 146, 42, 0.16);
+  background: var(--bg-card);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.36);
+}
+
+.altar-core__badge {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(196, 146, 42, 0.16);
+  background: rgba(196, 146, 42, 0.08);
+  font-family: "Cinzel", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.altar-core h4 {
+  margin: 0 0 10px;
+  font-family: "Cinzel", serif;
+  font-size: 1.42rem;
+  color: var(--bone);
+}
+
+.altar-core p {
+  margin: 0 0 18px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.altar-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.altar-skill {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(196, 146, 42, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  display: grid;
+  place-items: center;
+}
+
+.altar-skill img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.altar-skill--empty::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(196, 146, 42, 0.65), rgba(196, 146, 42, 0.12));
+  box-shadow: 0 0 12px rgba(196, 146, 42, 0.2);
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(140, 16, 16, 0.22), transparent 34%),
+    rgba(5, 4, 8, 0.98);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.42s ease, visibility 0.42s ease;
+  z-index: 9999;
+}
+
+.page-transition--active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-transition__sigil {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 146, 42, 0.28);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 34px rgba(139, 30, 23, 0.35);
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.theme-necromancer { --accent: #6f2a86; }
+.theme-paladin { --accent: #9d7720; }
+.theme-barbarian { --accent: #9a2917; }
+.theme-rogue { --accent: #146e72; }
+.theme-druid { --accent: #2d7c43; }
+.theme-sorcerer { --accent: #385eb8; }
+.theme-spiritborn { --accent: #16907d; }
+.theme-warlock { --accent: #7f1f57; }
+
+@media (max-width: 980px) {
+  .loadout-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .altar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .altar-center {
+    min-height: 320px;
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-wrap {
+    width: min(100% - 28px, 1180px);
+    padding-bottom: 56px;
+  }
+
+  .altar {
+    padding: 22px 18px;
+  }
+
+  .loadout-intro p {
+    font-size: 1.16rem;
+  }
+}

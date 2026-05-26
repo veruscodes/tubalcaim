@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lord of Hatred | TubalCaim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/channels4_profile.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg-void:      #04020a;
+      --bg-deep:      #0a0512;
+      --bg-surface:   #110b1c;
+      --bg-raised:    #1a1028;
+      --bg-edge:      #251535;
+
+      --crimson:      #a8181d;
+      --crimson-hot:  #d42020;
+      --crimson-glow: rgba(200,24,24,.5);
+      --blood:        #6b0f0f;
+
+      --gold:         #c4922a;
+      --gold-hot:     #f0b840;
+      --gold-pale:    #e8d5a0;
+      --gold-dim:     rgba(196,146,42,.18);
+
+      --bone:         #d8ccb8;
+      --text:         #b0a090;
+      --text-dim:     #6e5e50;
+
+      --r: 6px;
+      --r-lg: 12px;
+
+      --glow-c: 0 0 20px var(--crimson-glow), 0 0 60px rgba(168,24,29,.25);
+      --glow-g: 0 0 18px rgba(196,146,42,.45), 0 0 50px rgba(196,146,42,.18);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Crimson Pro', Georgia, serif;
+      background: var(--bg-void);
+      color: var(--bone);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: url("cursor/d4-normal-select.cur"), auto;
+    }
+
+    body.is-transitioning {
+      overflow-x: hidden;
+      cursor: url("cursor/d4-busy.ani"), wait;
+    }
+
+    a,
+    button,
+    .button,
+    .class-pill,
+    .toolbar-menu__item,
+    .toolbar-tab,
+    .build-link,
+    .build-card {
+      cursor: url("cursor/d4-link-select.cur"), pointer;
+    }
+
+    input,
+    textarea {
+      cursor: url("cursor/d4-text-select.cur"), text;
+    }
+
+    [disabled],
+    [aria-disabled="true"] {
+      cursor: url("cursor/d4-unavailable.cur"), not-allowed;
+    }
+
+    /* ── ATMOSPHERE ─────────────────────────────────────────── */
+    .hell-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 110%, rgba(120,10,10,.38) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 15% 90%, rgba(168,24,29,.16) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 85% 90%, rgba(168,24,29,.16) 0%, transparent 60%),
+        radial-gradient(circle at 50% 20%, rgba(58, 18, 12, .18) 0%, transparent 36%),
+        linear-gradient(180deg, #09050b 0%, #07040a 45%, #040208 100%),
+        var(--bg-void);
+      filter: none;
+      transform: none;
+    }
+
+    .hell-scanlines {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,.08) 3px,
+        rgba(0,0,0,.08) 4px
+      );
+      opacity: .45;
+    }
+
+    .hell-vignette {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,.8) 100%);
+    }
+
+    /* ── EMBERS ─────────────────────────────────────────────── */
+    .embers {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      overflow: hidden;
+    }
+    .embers span {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      animation: ember-rise linear infinite;
+      will-change: transform, opacity;
+    }
+    .embers span:nth-child(1)  { width:3px; height:3px; left:12%;  background:#d42020; animation-duration:8s;  animation-delay:0s;   opacity:.7; }
+    .embers span:nth-child(2)  { width:2px; height:2px; left:28%;  background:#f0b840; animation-duration:11s; animation-delay:2s;   opacity:.5; }
+    .embers span:nth-child(3)  { width:4px; height:4px; left:47%;  background:#a8181d; animation-duration:9s;  animation-delay:4s;   opacity:.6; }
+    .embers span:nth-child(4)  { width:2px; height:2px; left:63%;  background:#f0b840; animation-duration:13s; animation-delay:1s;   opacity:.4; }
+    .embers span:nth-child(5)  { width:3px; height:3px; left:78%;  background:#d42020; animation-duration:7s;  animation-delay:6s;   opacity:.65;}
+    .embers span:nth-child(6)  { width:2px; height:2px; left:91%;  background:#c4922a; animation-duration:10s; animation-delay:3s;   opacity:.5; }
+
+    @keyframes ember-rise {
+      0%   { transform: translateY(0)     translateX(0)   scale(1);   opacity:.7; }
+      50%  { transform: translateY(-45vh) translateX(18px) scale(.8);  opacity:.4; }
+      100% { transform: translateY(-95vh) translateX(-8px) scale(.4);  opacity:0;  }
+    }
+
+    /* ── LAYOUT WRAPPER ─────────────────────────────────────── */
+    .hatred-page {
+      position: relative; z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(212,32,32,.18), transparent 30%),
+        linear-gradient(180deg, rgba(5,2,8,.18), rgba(5,2,8,.96));
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .42s ease, visibility .42s ease;
+    }
+
+    .page-transition::before,
+    .page-transition::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .page-transition::before {
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.08) 3px, rgba(0,0,0,.08) 4px);
+      opacity: .4;
+    }
+
+    .page-transition::after {
+      background: radial-gradient(ellipse 85% 85% at 50% 50%, transparent 30%, rgba(0,0,0,.88) 100%);
+    }
+
+    .page-transition.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .page-transition__sigil {
+      position: relative;
+      z-index: 1;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(196,146,42,.32);
+      background: rgba(10,6,14,.72);
+      box-shadow: 0 0 0 12px rgba(196,146,42,.05), 0 0 40px rgba(168,24,29,.28);
+      color: var(--gold);
+      animation: transitionPulse 1.2s ease-in-out infinite;
+    }
+
+    .page-transition__sigil i {
+      font-size: 1.35rem;
+    }
+
+    @keyframes transitionPulse {
+      0%, 100% { transform: scale(.96); opacity: .88; }
+      50% { transform: scale(1.03); opacity: 1; }
+    }
+
+    /* ── BACK LINK ──────────────────────────────────────────── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 0 0;
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--gold); }
+    .back-link i { font-size: .7rem; }
+
+    /* ── DIVIDER ORNAMENT ───────────────────────────────────── */
+    .ornament {
+      display: flex; align-items: center; gap: 16px;
+      margin: 0 auto;
+      color: var(--blood);
+    }
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blood), transparent);
+    }
+    .ornament i { font-size: .8rem; opacity: .7; }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hatred-hero {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 56px;
+      align-items: start;
+      padding: 64px 0 80px;
+    }
+
+    .hatred-copy { position: relative; }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--gold);
+      opacity: .6;
+    }
+
+    /* Main title */
+    .hatred-copy h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: .02em;
+      color: var(--bone);
+      text-shadow:
+        0 0 30px var(--crimson-glow),
+        0 0 80px rgba(168,24,29,.2),
+        2px 2px 0 rgba(0,0,0,.8);
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .hatred-copy h1 span {
+      display: block;
+      color: var(--crimson-hot);
+      text-shadow:
+        0 0 20px var(--crimson-glow),
+        0 0 60px rgba(212,32,32,.4),
+        2px 2px 0 rgba(0,0,0,.9);
+    }
+
+    /* Sub */
+    .hatred-copy > p {
+      font-size: 1.15rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text);
+      max-width: 520px;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex; gap: 32px;
+      margin-bottom: 44px;
+    }
+    .hero-stat {
+      display: flex; flex-direction: column;
+      border-left: 2px solid var(--blood);
+      padding-left: 14px;
+    }
+    .hero-stat__value {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-stat__label {
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* CTA buttons */
+    .hatred-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hatred-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      font-family: 'Cinzel', serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: var(--r);
+      transition: transform .2s, box-shadow .2s, background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hatred-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hatred-btn:hover { transform: translateY(-2px); }
+
+    .hatred-btn--youtube {
+      background: linear-gradient(135deg, #8b0000 0%, #a8181d 50%, #c41e1e 100%);
+      color: var(--bone);
+      box-shadow: 0 4px 24px rgba(168,24,29,.4), inset 0 1px 0 rgba(255,255,255,.1);
+    }
+    .hatred-btn--youtube:hover {
+      box-shadow: var(--glow-c), inset 0 1px 0 rgba(255,255,255,.15);
+    }
+
+    .hatred-btn--twitch {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      box-shadow: inset 0 0 0 0 var(--gold-dim);
+    }
+    .hatred-btn--twitch:hover {
+      background: var(--gold-dim);
+      box-shadow: var(--glow-g);
+      color: var(--gold-hot);
+      border-color: var(--gold-hot);
+    }
+
+    /* ── HERO CARD ──────────────────────────────────────────── */
+    .hatred-card {
+      background: linear-gradient(160deg, var(--bg-surface) 0%, var(--bg-deep) 100%);
+      border: 1px solid rgba(196,146,42,.2);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(168,24,29,.08);
+      text-align: center;
+    }
+    /* Corner runes */
+    .hatred-card::before,
+    .hatred-card::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: .5;
+    }
+    .hatred-card::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+    .hatred-card::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+
+    .hatred-badge {
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(196,146,42,.1);
+      border: 1px solid rgba(196,146,42,.25);
+      border-radius: 100px;
+      padding: 5px 14px;
+    }
+
+    .hatred-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 24px rgba(196,146,42,.35), 0 0 0 4px rgba(196,146,42,.08);
+    }
+
+    .hatred-card h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--bone);
+      letter-spacing: .06em;
+    }
+    .hatred-card > p {
+      font-size: .95rem;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .hatred-panel {
+      width: 100%;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(196,146,42,.15);
+      border-radius: var(--r);
+      padding: 14px 18px;
+      display: flex; flex-direction: column; gap: 4px;
+      margin-top: 4px;
+    }
+    .hatred-panel span {
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .hatred-panel strong {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: .08em;
+    }
+
+    .live-dot {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--crimson-hot);
+    }
+    .live-dot::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--crimson-hot);
+      box-shadow: 0 0 8px var(--crimson-hot);
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.7); }
+    }
+
+    /* ── SECTION DIVIDER ────────────────────────────────────── */
+    .section-divider {
+      display: flex; align-items: center; gap: 20px;
+      margin-bottom: 52px;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,146,42,.35), transparent);
+    }
+    .section-divider__inner {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      text-align: center;
+    }
+    .section-divider__eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .section-divider h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--bone);
+      letter-spacing: .04em;
+      text-shadow: 0 0 30px rgba(168,24,29,.3);
+    }
+    .section-divider p {
+      font-size: .95rem;
+      color: var(--text);
+      font-style: italic;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    /* ── BUILDS SECTION ─────────────────────────────────────── */
+    .builds-section { padding-top: 0; }
+
+    /* CLASS RAIL */
+    .class-rail {
+      display: flex; align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 20px;
+      scrollbar-width: none;
+    }
+    .class-rail::-webkit-scrollbar { display: none; }
+
+    .class-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-radius: 100px;
+      border: 1px solid rgba(196,146,42,.18);
+      background: rgba(10,5,18,.6);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .class-pill:hover {
+      border-color: rgba(196,146,42,.4);
+      color: var(--bone);
+      background: rgba(196,146,42,.07);
+    }
+    .class-pill--active {
+      background: linear-gradient(135deg, var(--blood) 0%, var(--crimson) 100%);
+      border-color: var(--crimson-hot);
+      color: var(--bone);
+      box-shadow: 0 0 16px rgba(168,24,29,.4);
+    }
+    .class-pill__icon {
+      width: 22px; height: 22px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .class-pill__icon img { width: 100%; height: 100%; object-fit: cover; }
+    .class-pill__icon--all { background: rgba(196,146,42,.15); }
+    .class-pill__icon--all i { font-size: .6rem; color: var(--gold); }
+
+    /* TOOLBAR */
+    .build-toolbar {
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      padding: 16px 20px;
+      background: rgba(0,0,0,.3);
+      border: 1px solid rgba(196,146,42,.12);
+      border-radius: var(--r-lg);
+      backdrop-filter: blur(4px);
+    }
+
+    .toolbar-search {
+      display: flex; align-items: center; gap: 10px;
+      flex: 1; min-width: 180px;
+      padding: 10px 14px;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(196,146,42,.15);
+      border-radius: var(--r);
+      cursor: text;
+    }
+    .toolbar-search i { color: var(--text-dim); font-size: .8rem; flex-shrink: 0; }
+    .toolbar-search input {
+      border: none; background: transparent;
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: var(--bone);
+      outline: none; width: 100%;
+    }
+    .toolbar-search input::placeholder { color: var(--text-dim); }
+
+    .toolbar-select-wrap { position: relative; }
+    .toolbar-select {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 16px;
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(196,146,42,.15);
+      border-radius: var(--r);
+      color: var(--text);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+    }
+    .toolbar-select:hover { border-color: rgba(196,146,42,.4); color: var(--bone); }
+    .toolbar-select i { font-size: .6rem; color: var(--gold); transition: transform .2s; }
+    .toolbar-select[aria-expanded="true"] i { transform: rotate(180deg); }
+
+    .toolbar-menu {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      min-width: 180px;
+      background: var(--bg-surface);
+      border: 1px solid rgba(196,146,42,.25);
+      border-radius: var(--r-lg);
+      box-shadow: 0 16px 48px rgba(0,0,0,.7);
+      overflow: hidden;
+      z-index: 100;
+    }
+    .toolbar-menu[hidden] { display: none; }
+    .toolbar-menu__item {
+      display: block; width: 100%;
+      padding: 12px 18px;
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: left;
+      color: var(--text);
+      background: transparent;
+      border: none; cursor: pointer;
+      transition: all .15s;
+      border-bottom: 1px solid rgba(196,146,42,.08);
+    }
+    .toolbar-menu__item:last-child { border-bottom: none; }
+    .toolbar-menu__item:hover,
+    .toolbar-menu__item--active {
+      background: rgba(168,24,29,.2);
+      color: var(--bone);
+    }
+
+    .toolbar-tabs {
+      display: flex; gap: 4px;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(196,146,42,.12);
+      border-radius: var(--r);
+      padding: 4px;
+    }
+    .toolbar-tab {
+      padding: 7px 16px;
+      font-family: 'Cinzel', serif;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: transparent;
+      border: none; border-radius: 4px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .toolbar-tab:hover { color: var(--bone); background: rgba(196,146,42,.07); }
+    .toolbar-tab--active {
+      background: linear-gradient(135deg, var(--blood) 0%, var(--crimson) 100%);
+      color: var(--bone);
+      box-shadow: 0 0 10px rgba(168,24,29,.3);
+    }
+
+    /* ── BUILD GRID ─────────────────────────────────────────── */
+    .builds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── BUILD CARD ─────────────────────────────────────────── */
+    .build-card--catalog {
+      position: relative;
+      background: linear-gradient(170deg, var(--bg-surface) 0%, var(--bg-deep) 100%);
+      border: 1px solid rgba(196,146,42,.15);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+    .build-card--catalog:hover {
+      transform: translateY(-4px);
+      border-color: rgba(196,146,42,.4);
+      box-shadow: 0 16px 56px rgba(0,0,0,.65), 0 0 24px rgba(168,24,29,.15);
+    }
+
+    .build-card--catalog[hidden] {
+      display: none !important;
+    }
+
+    /* card media */
+    .build-card__media {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .build-card__media::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 30%, var(--bg-surface) 100%);
+      z-index: 1;
+    }
+    .build-card__media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(.6) brightness(.5);
+      transition: filter .35s, transform .35s;
+    }
+    .build-card--catalog:hover .build-card__media img {
+      filter: saturate(.9) brightness(.65);
+      transform: scale(1.05);
+    }
+
+    /* class-specific tints */
+    .build-card__media--necromancer::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(80,10,120,.45), transparent 70%);
+    }
+    .build-card__media--paladin::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(180,140,20,.35), transparent 70%);
+    }
+    .build-card__media--barbarian::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(140,20,20,.45), transparent 70%);
+    }
+    .build-card__media--rogue::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(10,90,100,.4), transparent 70%);
+    }
+    .build-card__media--druid::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(55,110,58,.42), transparent 70%);
+    }
+    .build-card__media--sorcerer::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(45,90,170,.42), transparent 70%);
+    }
+    .build-card__media--spiritborn::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(18,140,118,.42), transparent 70%);
+    }
+    .build-card__media--warlock::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 50% 80%, rgba(120,28,80,.45), transparent 70%);
+    }
+
+    /* feature media frame (necromancer) */
+    .build-card__media-frame {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .build-card__media-image--feature {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .build-card__media--paladin .build-card__media-image--feature {
+      object-position: center 18%;
+      transform: scale(1.06);
+    }
+
+    /* tier ribbon */
+    .build-tier {
+      position: absolute; top: 14px; right: 14px; z-index: 3;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .build-tier--s {
+      background: linear-gradient(135deg, #7c1a0a, #c41e1e);
+      color: var(--gold-pale);
+      border: 1px solid rgba(212,32,32,.5);
+      box-shadow: 0 0 12px rgba(168,24,29,.4);
+    }
+    .build-tier--a {
+      background: linear-gradient(135deg, #4a2a00, #c4922a);
+      color: var(--gold-pale);
+      border: 1px solid rgba(196,146,42,.5);
+    }
+    .build-tier--b {
+      background: rgba(30,20,40,.8);
+      color: #8899aa;
+      border: 1px solid rgba(100,130,160,.3);
+    }
+
+    /* body */
+    .build-card__body {
+      flex: 1;
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative;
+    }
+
+    .build-card__header {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+
+    .build-class-icon {
+      width: 40px; height: 40px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(196,146,42,.25);
+      background: rgba(0,0,0,.4);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .build-class-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .build-class-icon i { font-size: 1rem; color: var(--text-dim); }
+
+    .build-kicker {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .build-card__header h3 {
+      font-family: 'Cinzel', serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--bone);
+      line-height: 1.3;
+      letter-spacing: .03em;
+    }
+
+    .build-card__body > p {
+      font-size: .95rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text);
+      font-style: italic;
+      flex: 1;
+    }
+
+    /* stat row */
+    .build-stats {
+      display: flex; gap: 16px;
+    }
+    .build-stat {
+      display: flex; flex-direction: column; gap: 3px;
+      flex: 1;
+      background: rgba(0,0,0,.3);
+      border: 1px solid rgba(196,146,42,.1);
+      border-radius: var(--r);
+      padding: 8px 10px;
+    }
+    .build-stat__key {
+      font-family: 'Cinzel', serif;
+      font-size: .55rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .build-stat__val {
+      font-family: 'Cinzel', serif;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--bone);
+    }
+    .build-stat__val--high  { color: #4ade80; }
+    .build-stat__val--med   { color: var(--gold); }
+    .build-stat__val--low   { color: #f87171; }
+
+    /* tags */
+    .build-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .build-tags span {
+      font-family: 'Cinzel', serif;
+      font-size: .58rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(196,146,42,.12);
+      border-radius: 4px;
+      padding: 3px 9px;
+    }
+
+    /* link */
+    .build-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-top: 4px;
+      transition: gap .2s, color .2s;
+    }
+    .build-link:hover { gap: 12px; color: var(--gold-hot); }
+    .build-link i { font-size: .65rem; }
+
+    /* FEATURED CARD (first card) */
+    .build-card--catalog:first-child {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    .build-card--catalog:first-child .build-card__media {
+      width: 280px; min-width: 280px; height: auto;
+    }
+    .build-card--catalog:first-child .build-card__media::after {
+      background: linear-gradient(90deg, transparent 50%, var(--bg-surface) 100%);
+    }
+
+    /* empty state */
+    .builds-empty {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      grid-column: 1/-1;
+    }
+
+    .builds-callout {
+      margin-top: 28px;
+      padding: 18px 22px;
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(196,146,42,.12);
+      background: rgba(0,0,0,.24);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .builds-callout strong {
+      color: var(--bone);
+      font-family: 'Cinzel', serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .85rem;
+    }
+
+    .loadout-section {
+      display: none;
+    }
+
+    .loadout-section {
+      margin-top: 34px;
+      padding: 28px;
+      border: 1px solid rgba(196,146,42,.16);
+      border-radius: var(--r-lg);
+      background: linear-gradient(160deg, var(--bg-surface) 0%, var(--bg-deep) 100%);
+      box-shadow: 0 24px 80px rgba(0,0,0,.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loadout-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(74,170,138,.08), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 24%);
+      pointer-events: none;
+    }
+
+    .loadout-heading {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .loadout-heading h3 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+    }
+
+    .loadout-heading p {
+      max-width: 760px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .loadout-shell {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 320px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .loadout-column { display: grid; gap: 14px; }
+
+    .loadout-item {
+      min-height: 84px;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(196,146,42,.12);
+      background: rgba(0,0,0,.26);
+    }
+
+    .loadout-item__icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      border: 1px solid rgba(196,146,42,.12);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(196,146,42,.16), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.18));
+      display: grid;
+      place-items: center;
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      color: var(--gold);
+    }
+
+    .loadout-item__slot {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .loadout-item__name {
+      display: block;
+      color: #ff8b1f;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .loadout-item__type {
+      display: block;
+      color: #7c84a0;
+      font-size: .9rem;
+      font-style: italic;
+      margin-top: 2px;
+    }
+
+    .loadout-center {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .loadout-center::before {
+      content: "";
+      position: absolute;
+      inset: 12% 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(196,146,42,.08), transparent 62%);
+      filter: blur(12px);
+    }
+
+    .loadout-sigil {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: .12;
+      pointer-events: none;
+    }
+
+    .loadout-sigil img {
+      width: min(100%, 340px);
+      object-fit: contain;
+      filter: grayscale(1) brightness(.85);
+    }
+
+    .loadout-sigil--empty::before {
+      content: "";
+      width: min(100%, 300px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px dashed rgba(196,146,42,.22);
+      background:
+        radial-gradient(circle at center, rgba(196,146,42,.08), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.18));
+      box-shadow: inset 0 0 40px rgba(0,0,0,.35);
+    }
+
+    .loadout-core {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 280px;
+      padding: 24px 20px;
+      text-align: center;
+      border-radius: 18px;
+      border: 1px solid rgba(196,146,42,.16);
+      background: rgba(6,4,10,.72);
+      box-shadow: 0 16px 40px rgba(0,0,0,.36);
+    }
+
+    .loadout-core__badge {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(196,146,42,.16);
+      background: rgba(196,146,42,.08);
+      font-family: 'Cinzel', serif;
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .loadout-core h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .loadout-core p {
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .loadout-skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .loadout-skill {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(196,146,42,.14);
+      background: rgba(0,0,0,.35);
+      display: grid;
+      place-items: center;
+    }
+
+    .loadout-skill img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .loadout-item--empty .loadout-item__name {
+      color: var(--bone);
+      opacity: .86;
+    }
+
+    .loadout-item--empty .loadout-item__type {
+      color: var(--text-dim);
+    }
+
+    .loadout-skill--empty::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(196,146,42,.65), rgba(196,146,42,.12));
+      box-shadow: 0 0 12px rgba(196,146,42,.2);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hatred-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 0 60px;
+      }
+      .hatred-card { max-width: 400px; }
+      .build-card--catalog:first-child {
+        grid-column: span 1;
+        flex-direction: column;
+      }
+      .build-card--catalog:first-child .build-card__media {
+        width: 100%; min-width: unset; height: 200px;
+      }
+      .build-card--catalog:first-child .build-card__media::after {
+        background: linear-gradient(180deg, transparent 30%, var(--bg-surface) 100%);
+      }
+      .loadout-shell {
+        grid-template-columns: 1fr;
+      }
+      .loadout-center {
+        min-height: 320px;
+        order: -1;
+      }
+    }
+    @media (max-width: 600px) {
+      .hatred-page { padding: 0 16px 60px; }
+      .builds-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; }
+      .build-toolbar { flex-direction: column; align-items: stretch; }
+      .toolbar-tabs { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hell-bg"></div>
+  <div class="hell-scanlines"></div>
+  <div class="hell-vignette"></div>
+  <div class="embers" aria-hidden="true">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+  <main class="hatred-page">
+
+    <a class="back-link" href="index.html" data-page-link>
+      <i class="fa-solid fa-arrow-left"></i>
+      Voltar para a home
+    </a>
+
+    <!-- ═══ HERO ═══════════════════════════════════════════ -->
+    <section class="hatred-hero">
+      <div class="hatred-copy">
+        <span class="eyebrow">Diablo IV · Temporada 13</span>
+
+        <h1>
+          Lord of
+          <span>Hatred</span>
+        </h1>
+
+        <p>
+          O ódio tomou forma em Sanctuary. Uma abertura de live construída para quem entra no inferno com propósito — visual glass escuro, névoa corrompida e a presença de Mephisto em cada frame.
+        </p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat__value">8</span>
+            <span class="hero-stat__label">Classes</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat__value">S13</span>
+            <span class="hero-stat__label">Temporada</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat__value">100+</span>
+            <span class="hero-stat__label">Paragon</span>
+          </div>
+        </div>
+
+        <div class="hatred-actions">
+          <a href="https://www.youtube.com/@Tubalcaim.oficial" target="_blank" rel="noopener noreferrer" class="hatred-btn hatred-btn--youtube">
+            <i class="fa-brands fa-youtube"></i>
+            Assistir no YouTube
+          </a>
+          <a href="https://twitch.tv/tubalcaim_oficial" target="_blank" rel="noopener noreferrer" class="hatred-btn hatred-btn--twitch">
+            <i class="fa-brands fa-twitch"></i>
+            Ver na Twitch
+          </a>
+        </div>
+      </div>
+
+      <aside class="hatred-card">
+        <div class="hatred-badge">Canal em destaque</div>
+        <img src="images/channels4_profile.jpg" alt="TubalCaim" class="hatred-avatar">
+        <h2>TubalCaim</h2>
+        <p>Gameplay, boss fights e jornadas em Sanctuary. Do Inferno ao Paragon máximo.</p>
+
+        <div class="hatred-panel">
+          <span>Modo de campanha</span>
+          <strong>Lord of Hatred</strong>
+        </div>
+
+        <div class="live-dot">Ao vivo na Twitch</div>
+      </aside>
+    </section>
+
+    <!-- ═══ BUILDS SECTION ═════════════════════════════════ -->
+    <section class="builds-section" aria-label="Meta builds de Diablo IV">
+
+      <div class="section-divider">
+        <div class="section-divider__inner">
+          <span class="section-divider__eyebrow">Catálogo de Meta Builds</span>
+          <h2>Domine Sanctuary</h2>
+          <p>Escolha sua classe e trace o caminho até o Tier Máximo — builds curadas para cada etapa da jornada.</p>
+        </div>
+      </div>
+
+      <!-- Class rail -->
+      <div class="class-rail" aria-label="Classes disponíveis">
+        <button class="class-pill class-pill--active" type="button" data-class="all" aria-pressed="true">
+          <span class="class-pill__icon class-pill__icon--all"><i class="fa-solid fa-link"></i></span>
+          <span>All</span>
+        </button>
+        <button class="class-pill" type="button" data-class="barbarian" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/barbarian.webp" alt=""></span>
+          <span>Barbarian</span>
+        </button>
+        <button class="class-pill" type="button" data-class="druid" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/druid.webp" alt=""></span>
+          <span>Druid</span>
+        </button>
+        <button class="class-pill" type="button" data-class="necromancer" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/necromancer.webp" alt=""></span>
+          <span>Necromancer</span>
+        </button>
+        <button class="class-pill" type="button" data-class="paladin" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/paladin.webp" alt=""></span>
+          <span>Paladin</span>
+        </button>
+        <button class="class-pill" type="button" data-class="rogue" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/rogue.webp" alt=""></span>
+          <span>Rogue</span>
+        </button>
+        <button class="class-pill" type="button" data-class="sorcerer" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/sorcerer.webp" alt=""></span>
+          <span>Sorcerer</span>
+        </button>
+        <button class="class-pill" type="button" data-class="spiritborn" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/spiritborn.webp" alt=""></span>
+          <span>Spiritborn</span>
+        </button>
+        <button class="class-pill" type="button" data-class="warlock" aria-pressed="false">
+          <span class="class-pill__icon"><img src="images/Classes/warlock.webp" alt=""></span>
+          <span>Warlock</span>
+        </button>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="build-toolbar" aria-label="Filtros">
+        <label class="toolbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Buscar build ou habilidade…" data-build-search>
+        </label>
+
+        <div class="toolbar-select-wrap">
+          <button class="toolbar-select" type="button" data-playstyle-toggle aria-haspopup="true" aria-expanded="false">
+            <span data-playstyle-label>Playstyle</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="toolbar-menu" data-playstyle-menu hidden>
+            <button class="toolbar-menu__item toolbar-menu__item--active" type="button" data-playstyle="all">Todos os playstyles</button>
+            <button class="toolbar-menu__item" type="button" data-playstyle="melee">Melee</button>
+            <button class="toolbar-menu__item" type="button" data-playstyle="ranged">Ranged</button>
+            <button class="toolbar-menu__item" type="button" data-playstyle="summoner">Summoner</button>
+            <button class="toolbar-menu__item" type="button" data-playstyle="tank">Tank</button>
+            <button class="toolbar-menu__item" type="button" data-playstyle="speedfarm">Speedfarm</button>
+          </div>
+        </div>
+
+        <div class="toolbar-tabs" role="tablist" aria-label="Tipo de build">
+          <button class="toolbar-tab toolbar-tab--active" type="button" data-type="all" aria-selected="true">All</button>
+          <button class="toolbar-tab" type="button" data-type="leveling" aria-selected="false">Leveling</button>
+          <button class="toolbar-tab" type="button" data-type="endgame" aria-selected="false">Endgame</button>
+        </div>
+      </div>
+
+      <!-- Build cards -->
+      <div class="builds-grid build-catalog">
+
+        <!-- NECROMANCER - destaque -->
+        <article class="build-card build-card--catalog" data-class="necromancer" data-type="endgame" data-playstyle="summoner" data-search="necromancer blood surge endgame build season 13 nightmare dungeons farm push">
+          <div class="build-card__media build-card__media--necromancer">
+            <div class="build-card__media-frame">
+              <img src="images/Build/Necromancer-build.webp" alt="Necromancer Blood Surge" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--s">S · Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/necromancer.webp" alt="Necromancer" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-skull" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Top da temporada · Endgame</span>
+                <h3>Necromancer Blood Surge</h3>
+              </div>
+            </div>
+            <p>Limpeza agressiva com sustain absurdo — domina Nightmare Dungeons e derruba boss de push sem perder o controle do campo.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Dano</span>
+                <span class="build-stat__val build-stat__val--high">Extremo</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Sustain</span>
+                <span class="build-stat__val build-stat__val--high">Alto</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Curva</span>
+                <span class="build-stat__val build-stat__val--med">Média</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Season 13</span>
+              <span>Endgame</span>
+              <span>Summoner</span>
+              <span>NMD</span>
+            </div>
+            <a href="necromancer-loadout.html" class="build-link" data-page-link>Abrir guia completo <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- PALADIN -->
+        <article class="build-card build-card--catalog" data-class="paladin" data-type="endgame" data-playstyle="tank" data-search="paladin clash endgame build guide defense holy survivability control">
+          <div class="build-card__media build-card__media--paladin">
+            <div class="build-card__media-frame">
+              <img src="images/Build/paladin-build.png" alt="Clash Paladin Endgame" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--a">A · Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/paladin.webp" alt="Paladin" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-shield-halved" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Defesa sagrada · Tank</span>
+                <h3>Clash Paladin Endgame</h3>
+              </div>
+            </div>
+            <p>Sobrevivência máxima e pressão constante. Feito para quem quer segurar o campo e nunca cair no inferno.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Defesa</span>
+                <span class="build-stat__val build-stat__val--high">Extrema</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Dano</span>
+                <span class="build-stat__val build-stat__val--med">Moderado</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Season 13</span>
+              <span>Endgame</span>
+              <span>Tank</span>
+            </div>
+            <a href="paladin-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- BARBARIAN -->
+        <article class="build-card build-card--catalog" data-class="barbarian" data-type="leveling" data-playstyle="speedfarm" data-search="barbarian whirlwind speedfarm leveling mobility damage farm">
+          <div class="build-card__media build-card__media--barbarian">
+            <div class="build-card__media-frame">
+              <img src="images/Build/Barbarian-build.webp" alt="Barbarian Whirlwind" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--a">A · Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/barbarian.webp" alt="Barbarian" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-hammer" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Brutalidade pura · Speedfarm</span>
+                <h3>Barbarian Whirlwind</h3>
+              </div>
+            </div>
+            <p>Nunca para. Mobilidade constante e dano sustentado que varre dungeons inteiras sem abrir o inventário.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Velocidade</span>
+                <span class="build-stat__val build-stat__val--high">Alta</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Farm</span>
+                <span class="build-stat__val build-stat__val--high">Excelente</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Leveling</span>
+              <span>Speedfarm</span>
+              <span>AoE</span>
+            </div>
+            <a href="barbarian-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- ROGUE -->
+        <article class="build-card build-card--catalog" data-class="rogue" data-type="leveling" data-playstyle="ranged" data-search="rogue penetrating shot build leveling ranged crit elites mobility">
+          <div class="build-card__media build-card__media--rogue">
+            <div class="build-card__media-frame">
+              <img src="images/Build/Rogue-build.webp" alt="Rogue Penetrating Shot" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--b">B · Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/rogue.webp" alt="Rogue" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-feather-pointed" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Mobilidade letal · Ranged</span>
+                <h3>Rogue Penetrating Shot</h3>
+              </div>
+            </div>
+            <p>Críticos perfurantes a longa distância. Elites caem rápido, grupos limpam mais rápido ainda.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Crítico</span>
+                <span class="build-stat__val build-stat__val--high">Alto</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Alcance</span>
+                <span class="build-stat__val build-stat__val--med">Médio</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Burst</span>
+              <span>Ranged</span>
+              <span>Crit</span>
+            </div>
+            <a href="rogue-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- DRUID -->
+        <article class="build-card build-card--catalog" data-class="druid" data-type="endgame" data-playstyle="tank" data-search="druid build endgame tank pulverize nature fortress survivability">
+          <div class="build-card__media build-card__media--druid">
+            <div class="build-card__media-frame">
+              <img src="images/Build/Druid-Build.jpg" alt="Druid Endgame Build" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--a">A Â· Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/druid.webp" alt="Druid" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-leaf" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Fúria da natureza Â· Tank</span>
+                <h3>Druid Endgame Fortress</h3>
+              </div>
+            </div>
+            <p>Corpo fechado, pressão constante e controle do mapa. Uma build robusta para segurar elite, boss e caos de endgame.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Resistência</span>
+                <span class="build-stat__val build-stat__val--high">Alta</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Controle</span>
+                <span class="build-stat__val build-stat__val--med">Forte</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Endgame</span>
+              <span>Tank</span>
+              <span>Nature</span>
+            </div>
+            <a href="druid-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- SORCERER -->
+        <article class="build-card build-card--catalog" data-class="sorcerer" data-type="endgame" data-playstyle="ranged" data-search="sorcerer build endgame ranged frost lightning burst mana control">
+          <div class="build-card__media build-card__media--sorcerer">
+            <div class="build-card__media-frame">
+              <img src="images/Build/sorcerer-build.jpg" alt="Sorcerer Endgame Build" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--s">S Â· Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/sorcerer.webp" alt="Sorcerer" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-wand-sparkles" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Arcana suprema Â· Ranged</span>
+                <h3>Sorcerer Elemental Burst</h3>
+              </div>
+            </div>
+            <p>Explosão elemental com dano alto e ritmo rápido. Excelente para limpar tela, controlar distância e deletar ameaça.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Burst</span>
+                <span class="build-stat__val build-stat__val--high">Extremo</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Mana</span>
+                <span class="build-stat__val build-stat__val--med">Estável</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Endgame</span>
+              <span>Ranged</span>
+              <span>Elemental</span>
+            </div>
+            <a href="sorcerer-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- SPIRITBORN -->
+        <article class="build-card build-card--catalog" data-class="spiritborn" data-type="leveling" data-playstyle="melee" data-search="spiritborn build leveling melee agility poison burst jungle">
+          <div class="build-card__media build-card__media--spiritborn">
+            <div class="build-card__media-frame">
+              <img src="images/Build/sporitborn-build.avif" alt="Spiritborn Leveling Build" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--a">A Â· Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/spiritborn.webp" alt="Spiritborn" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-paw" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Instinto feroz Â· Melee</span>
+                <h3>Spiritborn Jungle Rush</h3>
+              </div>
+            </div>
+            <p>Ágil, agressiva e ótima para progressão. A build entra, explode pack e segue em frente sem perder o compasso.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Agilidade</span>
+                <span class="build-stat__val build-stat__val--high">Alta</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Leveling</span>
+                <span class="build-stat__val build-stat__val--high">Ótimo</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Leveling</span>
+              <span>Melee</span>
+              <span>Poison</span>
+            </div>
+            <a href="spiritborn-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- WARLOCK -->
+        <article class="build-card build-card--catalog" data-class="warlock" data-type="endgame" data-playstyle="summoner" data-search="warlock build endgame summoner curses shadow ritual control">
+          <div class="build-card__media build-card__media--warlock">
+            <div class="build-card__media-frame">
+              <img src="images/Build/warlock-build.jpg" alt="Warlock Endgame Build" class="build-card__media-image--feature">
+            </div>
+            <span class="build-tier build-tier--s">S Â· Tier</span>
+          </div>
+          <div class="build-card__body">
+            <div class="build-card__header">
+              <span class="build-class-icon">
+                <img src="images/Classes/warlock.webp" alt="Warlock" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <i class="fa-solid fa-hat-wizard" style="display:none;"></i>
+              </span>
+              <div>
+                <span class="build-kicker">Ritual sombrio Â· Summoner</span>
+                <h3>Warlock Shadow Covenant</h3>
+              </div>
+            </div>
+            <p>Maldições, invocações e pressão persistente. Uma presença pesada para dominar grupos e sustentar o caos no endgame.</p>
+            <div class="build-stats">
+              <div class="build-stat">
+                <span class="build-stat__key">Controle</span>
+                <span class="build-stat__val build-stat__val--high">Alto</span>
+              </div>
+              <div class="build-stat">
+                <span class="build-stat__key">Invocações</span>
+                <span class="build-stat__val build-stat__val--high">Fortes</span>
+              </div>
+            </div>
+            <div class="build-tags">
+              <span>Endgame</span>
+              <span>Summoner</span>
+              <span>Shadow</span>
+            </div>
+            <a href="warlock-loadout.html" class="build-link" data-page-link>Ver build <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="builds-empty" data-builds-empty hidden>Nenhuma build encontrada com esses filtros.</p>
+
+      <div class="builds-callout">
+        <strong>Loadouts individuais</strong><br>
+        Cada classe agora abre sua propria pagina dedicada ao clicar em <em>Ver build</em>, mantendo o catalogo limpo e a experiencia separada por personagem.
+      </div>
+
+      <section class="loadout-section" id="druid-companion-loadout" aria-label="Loadout Companion do Druid">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Druid Companion Loadout</span>
+          <h3>Altar de gear e aspects</h3>
+          <p>Uma leitura inspirada na composição da build original, mas adaptada para o seu visual. Aqui a gente mostra o setup central do Druid Companion sem depender da interface crua da Infinity.</p>
+        </div>
+
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item">
+              <div class="loadout-item__icon">H</div>
+              <div>
+                <span class="loadout-item__slot">Helm</span>
+                <strong class="loadout-item__name">Heir of Perdition</strong>
+                <span class="loadout-item__type">Helm</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">C</div>
+              <div>
+                <span class="loadout-item__slot">Chest Armor</span>
+                <strong class="loadout-item__name">Aspect of Glynn's Anvil</strong>
+                <span class="loadout-item__type">Chest Armor</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">G</div>
+              <div>
+                <span class="loadout-item__slot">Gloves</span>
+                <strong class="loadout-item__name">Aspect of the Stampede</strong>
+                <span class="loadout-item__type">Gloves</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">P</div>
+              <div>
+                <span class="loadout-item__slot">Pants</span>
+                <strong class="loadout-item__name">Storm's Companion</strong>
+                <span class="loadout-item__type">Pants</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">B</div>
+              <div>
+                <span class="loadout-item__slot">Boots</span>
+                <strong class="loadout-item__name">Aspect of Anger Management</strong>
+                <span class="loadout-item__type">Boots</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">W</div>
+              <div>
+                <span class="loadout-item__slot">Weapon</span>
+                <strong class="loadout-item__name">Shepherd's Aspect</strong>
+                <span class="loadout-item__type">Two-Handed Axe</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="loadout-center">
+            <div class="loadout-sigil">
+              <img src="images/Build/Druid/images/druid.png" alt="">
+            </div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">[DMC] Companion</span>
+              <h4>Druid Companion</h4>
+              <p>Versão ritualizada do setup principal com foco em companheiros, sustain defensivo e pressão constante em conteúdo de endgame.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill"><img src="images/Build/Druid/images/wolf_pack__active_skill.webp" alt="Wolf Pack"></span>
+                <span class="loadout-skill"><img src="images/Build/Druid/images/earthen_bulwark__active_skill.webp" alt="Earthen Bulwark"></span>
+                <span class="loadout-skill"><img src="images/Build/Druid/images/debilitating_roar__active_skill.webp" alt="Debilitating Roar"></span>
+                <span class="loadout-skill"><img src="images/Build/Druid/images/petrify__active_skill.webp" alt="Petrify"></span>
+                <span class="loadout-skill"><img src="images/Build/Druid/images/cyclone_armor__active_skill.webp" alt="Cyclone Armor"></span>
+                <span class="loadout-skill"><img src="images/Build/Druid/images/ravens__active_skill.webp" alt="Ravens"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="loadout-column">
+            <article class="loadout-item">
+              <div class="loadout-item__icon">A</div>
+              <div>
+                <span class="loadout-item__slot">Amulet</span>
+                <strong class="loadout-item__name">Aspect of Reanimation</strong>
+                <span class="loadout-item__type">Amulet</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">R1</div>
+              <div>
+                <span class="loadout-item__slot">Ring 1</span>
+                <strong class="loadout-item__name">Might of the Ursine</strong>
+                <span class="loadout-item__type">Ring</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">R2</div>
+              <div>
+                <span class="loadout-item__slot">Ring 2</span>
+                <strong class="loadout-item__name">Hellbent Commander Aspect</strong>
+                <span class="loadout-item__type">Ring</span>
+              </div>
+            </article>
+
+            <article class="loadout-item">
+              <div class="loadout-item__icon">O</div>
+              <div>
+                <span class="loadout-item__slot">Offhand</span>
+                <strong class="loadout-item__name">Shepherd's Aspect</strong>
+                <span class="loadout-item__type">Totem</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="necromancer-loadout" aria-label="Loadout do Necromancer">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Necromancer Loadout</span>
+          <h3>Altar base do Necromancer</h3>
+          <p>Estrutura pronta para você subir os assets da build. Mantive o mesmo layout ritual do Druid, mas deixando os slots vazios para preencher depois.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Necromancer</span>
+              <h4>Base de build</h4>
+              <p>Quando você subir os assets dessa classe, este altar já está pronto para receber a arte central, os ícones de skill e os nomes dos itens.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="paladin-loadout" aria-label="Loadout do Paladin">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Paladin Loadout</span>
+          <h3>Altar base do Paladin</h3>
+          <p>Quadro reservado para a build do Paladin, mantendo a mesma composição visual para você preencher item por item depois.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Paladin</span>
+              <h4>Base de build</h4>
+              <p>Espaço preparado para a imagem central, ícones de skills e itens do Paladin sem reaproveitar o conteúdo do Druid.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="barbarian-loadout" aria-label="Loadout do Barbarian">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Barbarian Loadout</span>
+          <h3>Altar base do Barbarian</h3>
+          <p>Mesmo layout do altar principal, mas vazio, para você montar a build do Barbarian com seus próprios assets.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Barbarian</span>
+              <h4>Base de build</h4>
+              <p>Os espaços já estão dimensionados para receber a arte, as skills e os itens do Barbarian sem afetar as outras classes.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="rogue-loadout" aria-label="Loadout do Rogue">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Rogue Loadout</span>
+          <h3>Altar base do Rogue</h3>
+          <p>Estrutura ritual pronta para a build do Rogue, sem conteúdo reaproveitado do Druid e com áreas vazias para os seus assets.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Rogue</span>
+              <h4>Base de build</h4>
+              <p>Quando você subir a build do Rogue, os espaços já vão estar encaixados no mesmo padrão visual da página.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="sorcerer-loadout" aria-label="Loadout do Sorcerer">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Sorcerer Loadout</span>
+          <h3>Altar base do Sorcerer</h3>
+          <p>Área reservada para a build do Sorcerer, com a mesma hierarquia visual e espaços vazios aguardando os assets corretos.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Sorcerer</span>
+              <h4>Base de build</h4>
+              <p>O altar do Sorcerer já está pronto para receber arte central, ícones de skill e listagem de itens sem retrabalho estrutural.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="spiritborn-loadout" aria-label="Loadout do Spiritborn">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Spiritborn Loadout</span>
+          <h3>Altar base do Spiritborn</h3>
+          <p>Modelo replicado para o Spiritborn, mantendo os espaços vazios e independentes do conteúdo do Druid.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Spiritborn</span>
+              <h4>Base de build</h4>
+              <p>Esse quadro já segura a futura build do Spiritborn com o mesmo ritmo visual do restante da página.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="loadout-section" id="warlock-loadout" aria-label="Loadout do Warlock">
+        <div class="loadout-heading">
+          <span class="section-divider__eyebrow">Warlock Loadout</span>
+          <h3>Altar base do Warlock</h3>
+          <p>Replicação da estrutura do loadout para o Warlock, pronta para receber as imagens e nomes definitivos quando você subir os assets.</p>
+        </div>
+        <div class="loadout-shell">
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">H</div><div><span class="loadout-item__slot">Helm</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">C</div><div><span class="loadout-item__slot">Chest Armor</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">G</div><div><span class="loadout-item__slot">Gloves</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">P</div><div><span class="loadout-item__slot">Pants</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">B</div><div><span class="loadout-item__slot">Boots</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">W</div><div><span class="loadout-item__slot">Weapon</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+          <div class="loadout-center">
+            <div class="loadout-sigil loadout-sigil--empty"></div>
+            <div class="loadout-core">
+              <span class="loadout-core__badge">Warlock</span>
+              <h4>Base de build</h4>
+              <p>O esqueleto visual do Warlock já está isolado do Druid e pronto para receber a sua build depois.</p>
+              <div class="loadout-skills">
+                <span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span><span class="loadout-skill loadout-skill--empty"></span>
+              </div>
+            </div>
+          </div>
+          <div class="loadout-column">
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">A</div><div><span class="loadout-item__slot">Amulet</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R1</div><div><span class="loadout-item__slot">Ring 1</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">R2</div><div><span class="loadout-item__slot">Ring 2</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+            <article class="loadout-item loadout-item--empty"><div class="loadout-item__icon">O</div><div><span class="loadout-item__slot">Offhand</span><strong class="loadout-item__name">Espaço reservado</strong><span class="loadout-item__type">Asset da build</span></div></article>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <div class="page-transition" id="pageTransition" aria-hidden="true">
+    <div class="page-transition__sigil">
+      <i class="fa-solid fa-skull"></i>
+    </div>
+  </div>
+
+  <script>
+    /* ── JS: class filter, playstyle dropdown, type tabs, search ── */
+    (() => {
+      // --- class pills ---
+      const pills = document.querySelectorAll('.class-pill');
+      const cards = document.querySelectorAll('.build-card--catalog');
+      const empty = document.querySelector('[data-builds-empty]');
+      const pageTransition = document.getElementById('pageTransition');
+      const pageLinks = document.querySelectorAll('a[data-page-link]');
+      let activeClass = 'all';
+
+      pills.forEach(btn => {
+        btn.addEventListener('click', () => {
+          pills.forEach(p => { p.classList.remove('class-pill--active'); p.setAttribute('aria-pressed','false'); });
+          btn.classList.add('class-pill--active');
+          btn.setAttribute('aria-pressed','true');
+          activeClass = (btn.dataset.class || 'all').toLowerCase();
+          filterCards();
+        });
+      });
+
+      // --- type tabs ---
+      const typeTabs = document.querySelectorAll('.toolbar-tab');
+      let activeType = 'all';
+
+      typeTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          typeTabs.forEach(t => { t.classList.remove('toolbar-tab--active'); t.setAttribute('aria-selected','false'); });
+          tab.classList.add('toolbar-tab--active');
+          tab.setAttribute('aria-selected','true');
+          activeType = (tab.dataset.type || 'all').toLowerCase();
+          filterCards();
+        });
+      });
+
+      // --- playstyle dropdown ---
+      const toggleBtn  = document.querySelector('[data-playstyle-toggle]');
+      const menu       = document.querySelector('[data-playstyle-menu]');
+      const label      = document.querySelector('[data-playstyle-label]');
+      const menuItems  = document.querySelectorAll('.toolbar-menu__item[data-playstyle]');
+      let activePlay   = 'all';
+
+      toggleBtn.addEventListener('click', () => {
+        const open = menu.hidden;
+        menu.hidden = !open;
+        toggleBtn.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', e => {
+        if (!toggleBtn.contains(e.target) && !menu.contains(e.target)) {
+          menu.hidden = true;
+          toggleBtn.setAttribute('aria-expanded','false');
+        }
+      });
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          menuItems.forEach(i => i.classList.remove('toolbar-menu__item--active'));
+          item.classList.add('toolbar-menu__item--active');
+          activePlay = (item.dataset.playstyle || 'all').toLowerCase();
+          label.textContent = activePlay === 'all' ? 'Playstyle' : item.textContent;
+          menu.hidden = true;
+          toggleBtn.setAttribute('aria-expanded','false');
+          filterCards();
+        });
+      });
+
+      // --- search ---
+      const searchInput = document.querySelector('[data-build-search]');
+      let searchVal = '';
+      searchInput.addEventListener('input', () => {
+        searchVal = searchInput.value.toLowerCase().trim();
+        filterCards();
+      });
+
+      // --- filter engine ---
+      function filterCards() {
+        let anyVisible = false;
+
+        cards.forEach(card => {
+          const className = (card.dataset.class || '').toLowerCase();
+          const typeName = (card.dataset.type || '').toLowerCase();
+          const playstyleName = (card.dataset.playstyle || '').toLowerCase();
+          const tagsText = Array.from(card.querySelectorAll('.build-tags span'))
+            .map(tag => tag.textContent || '')
+            .join(' ')
+            .toLowerCase();
+          const titleText = (card.querySelector('h3')?.textContent || '').toLowerCase();
+          const kickerText = (card.querySelector('.build-kicker')?.textContent || '').toLowerCase();
+          const searchText = [
+            card.dataset.search || '',
+            card.textContent || '',
+            className,
+            typeName,
+            playstyleName,
+            tagsText,
+            titleText,
+            kickerText
+          ].join(' ').toLowerCase();
+
+          const matchClass  = activeClass === 'all' || className === activeClass;
+          const matchType   = activeType === 'all' || typeName === activeType;
+          const matchPlay   = activePlay === 'all' || playstyleName === activePlay;
+          const matchSearch = !searchVal || searchText.includes(searchVal);
+
+          const show = matchClass && matchType && matchPlay && matchSearch;
+          card.hidden = !show;
+          if (show) anyVisible = true;
+        });
+
+        empty.hidden = anyVisible;
+      }
+
+      filterCards();
+
+      pageLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const href = link.getAttribute('href');
+
+          if (!href || href.startsWith('http') || href.startsWith('#')) {
+            return;
+          }
+
+          event.preventDefault();
+          document.body.classList.add('is-transitioning');
+          pageTransition?.classList.add('active');
+          window.setTimeout(() => {
+            window.location.href = href;
+          }, 360);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

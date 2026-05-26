@@ -1,38 +1,70 @@
 # TubalCaim
 
-Landing page estilo link hub desenvolvida para centralizar a presenca online do projeto TubalCaim, com destaque para YouTube, Twitch, TikTok e identidade visual gamer.
+Hub visual do canal TubalCaim com home cinematografica, catalogo de builds inspirado em Diablo IV e paginas individuais de loadout para cada classe.
 
 ## Demo
 
-- Site online: https://veruscodes.github.io/tubalcaim/
+- Home: https://veruscodes.github.io/tubalcaim/
+- Catalogo Lord of Hatred: https://veruscodes.github.io/tubalcaim/lord-of-hatred-v2.html
+- Exemplo de loadout: https://veruscodes.github.io/tubalcaim/druid-loadout.html
+
+## Print da atualizacao
 
 <p align="center">
   <a href="https://veruscodes.github.io/tubalcaim/" target="_blank">
-    <img src="https://image.thum.io/get/width/1200/noanimate/https://veruscodes.github.io/tubalcaim/" alt="Preview do projeto TubalCaim" />
+    <img src="https://image.thum.io/get/width/1400/noanimate/https://veruscodes.github.io/tubalcaim/" alt="Preview atualizado da home TubalCaim" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://veruscodes.github.io/tubalcaim/" target="_blank">Abrir preview online</a>
+  <a href="https://veruscodes.github.io/tubalcaim/lord-of-hatred-v2.html" target="_blank">
+    <img src="https://image.thum.io/get/width/1400/noanimate/https://veruscodes.github.io/tubalcaim/lord-of-hatred-v2.html" alt="Preview atualizado do catalogo Lord of Hatred" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://veruscodes.github.io/tubalcaim/druid-loadout.html" target="_blank">
+    <img src="https://image.thum.io/get/width/1400/noanimate/https://veruscodes.github.io/tubalcaim/druid-loadout.html" alt="Preview atualizado do loadout do Druid" />
+  </a>
 </p>
 
 ## Sobre o projeto
 
-Este projeto foi construido para funcionar como uma pagina unica de apresentacao e acesso rapido aos canais do criador, com foco em:
+O projeto evoluiu de uma landing page de links para uma experiencia completa do canal, com:
 
-- identidade visual forte
-- navegacao simples
-- links sociais com chamada para acao
-- experiencia leve e direta para publico gamer
+- home tematica com identidade visual forte
+- vitrine de lives e acessos rapidos para plataformas
+- catalogo de builds com filtros por classe e estilo
+- paginas separadas de loadout para cada classe
+- transicoes entre paginas e cursores tematicos
 
-## Recursos
+## Recursos principais
 
-- avatar e identidade personalizada
-- selo visual ao lado do nome
-- cards de redes sociais com CTA
-- efeito de particulas no background
-- modal com contatos para plataformas de jogo
-- layout responsivo e facil de navegar
+- visual inspirado em Diablo IV com tipografia e ambientacao ritual
+- pagina principal repaginada para destacar canal, videos e redes
+- catalogo de builds com filtro por classe, tipo, playstyle e busca
+- loadouts individuais por classe para facilitar manutencao futura
+- estrutura pronta para receber assets de itens e skills por classe
+- experiencia responsiva para desktop e mobile
+
+## Estrutura atual
+
+```txt
+.
+|-- index.html
+|-- lord-of-hatred-v2.html
+|-- *-loadout.html
+|-- css/
+|   |-- style.css
+|   |-- lord-of-hatred.css
+|   `-- class-loadout.css
+|-- js/
+|   |-- class-loadout.js
+|   |-- lord-of-hatred.js
+|   `-- video-preview.js
+|-- cursor/
+`-- images/
+```
 
 ## Stack
 
@@ -40,24 +72,7 @@ Este projeto foi construido para funcionar como uma pagina unica de apresentacao
 - CSS3
 - JavaScript
 - Font Awesome
-- Particles.js
 - GitHub Pages
-
-## Estrutura
-
-```txt
-.
-|-- index.html
-|-- css/
-|   `-- style.css
-|-- js/
-|   `-- particles.js
-`-- images/
-```
-
-## Objetivo
-
-Criar uma pagina visualmente marcante, simples de manter e eficiente para concentrar links, reforcar marca pessoal e facilitar o acesso do publico aos canais principais.
 
 ## Autor
 
