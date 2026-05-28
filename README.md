@@ -10,11 +10,6 @@ Hub visual do canal TubalCaim com home cinematografica, catalogo de builds inspi
 
 ## Print da atualizacao
 
-<p align="center">
-  <a href="https://veruscodes.github.io/tubalcaim/" target="_blank">
-    <img src="https://image.thum.io/get/width/1400/noanimate/https://veruscodes.github.io/tubalcaim/" alt="Preview atualizado da home TubalCaim" />
-  </a>
-</p>
 
 <p align="center">
   <a href="https://veruscodes.github.io/tubalcaim/lord-of-hatred-v2.html" target="_blank">
